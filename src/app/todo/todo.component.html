@@ -1,0 +1,11 @@
+<form [formGroup]="todoForm"  #formDir="ngForm" (ngSubmit)="onSubmit()">
+    <div [hidden]="formDir.submitted"></div>
+<label>
+    Take the garbage out:
+    <input type="text" [formControl]="name">
+</label>
+
+<p>
+    <button (click)="updateName()">Clear All</button>
+</p>
+</form>
