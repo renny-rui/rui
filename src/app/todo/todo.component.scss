@@ -1,19 +1,65 @@
-:host {
-    display: flex;
-    flex-direction: column;
-    padding-top: 24px;
-  }
-  
-  label {
-    display: block;
-    width: 6em;
-    margin: .5em 0;
-    color: #607D8B;
-    font-weight: bold;
-  }
-  
-  input {
-    height: 2em;
-    font-size: 1em;
-    padding-left: .4em;
-  }
+.body {
+    background-image: linear-gradient(#fc6c48 0%, #ef5081 100%);
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+    position: relative;
+    .container {
+        margin-top: 100px;
+        .example-card {
+            padding: 30px;
+            .mat-card-header {
+                text-align: left;
+                flex-wrap: wrap;
+            }
+        }
+        .todo-header {
+            h1 {
+                color: #fff;
+                text-align: center;
+                margin-bottom: 40px;
+            }
+        }
+        .input {
+            line-height: 30px;
+            .mat-form-field {
+                width: 300px;
+                height: 30px;
+                font-size: 12px;
+            }
+        }
+        .hover {
+            background-color: #fc6c48;
+        }
+        .button {
+            height: 30px;
+        }
+        .mat-list-box {
+            width: 100%;
+        }
+        .mat-list {
+            width: 100%;
+            .free {
+                min-height: 80px;
+            }
+            .completedItem {
+                text-decoration: line-through;
+            }
+            .mat-list-item {
+                width: 100%;
+                .deleteButton {
+                    position: absolute;
+                    right: 0;
+                    width: 10px;
+                    line-height: 20px;
+                    height: 20px;
+                }
+            }
+        }
+    }
+}
+
+.footer {
+    position: absolute;
+    bottom: 30px;
+}

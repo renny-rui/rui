@@ -10,33 +10,43 @@ export class LoginComponent implements OnInit {
   loginStatus = false;
   returnUrl: string;
   tokenStatic: string;
+  remember: boolean;
   form: FormGroup = new FormGroup({
-    username: new FormControl('',Validators.required),
-    password: new FormControl('',Validators.required),
+    username: new FormControl('', Validators.required),
+    password: new FormControl('', Validators.required),
+    remember: new FormControl(true),
   });
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-  ) { }
+  ) {
+    this.remember = true;
+  }
 
   ngOnInit() {
-  }
-submit(){
-  this.loginStatus=true;
-  if(this.form.valid){
-    if(this.form.get('username').value ==='zr' &&this.form.get('password').value === '123'){
-      console.log(this.form);
-      this.router.navigateByUrl('');
-    }else{
-      alert('用户名或密码错误');
+    if (localStorage.getItem('username') && localStorage.getItem('password')) {
+      this.form.get('username').setValue(localStorage.getItem('username'));
+      this.form.get('password').setValue(localStorage.getItem('password'));
+    } else {
+      this.remember = false;
     }
   }
-}
-}
-export class LoginService{
-  isDisplayMainNav: boolean;
-  isLoggedIn = false;
-  // store the URL so we can redirect after logging in
-  redirectUrl: string;
+  submit() {
+    this.loginStatus = true;
+    if (this.form.valid) {
+      if (this.form.get('username').value === 'zr' && this.form.get('password').value === '123') {
+        if (this.remember) {
+          console.log(this.remember);
+          localStorage.setItem('username', this.form.get('username').value);
+          localStorage.setItem('password', unescape(this.form.get('password').value));
+        } else {
+          localStorage.clear();
+        }
+        this.router.navigateByUrl('/todo');
+      } else {
+        alert('用户名或密码错误');
+      }
+    }
+  }
 }
 

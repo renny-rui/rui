@@ -4,22 +4,25 @@ import { LoginComponent } from './login/login.component';
 import { Routes, RouterModule } from '@angular/router';
 import { TodoComponent } from './todo/todo.component';
 const routes: Routes = [
-  { path: '',
-  redirectTo: '/login',
-  pathMatch: 'full'
-},
-  {path:'login',
-    component:LoginComponent
+  {
+    path: '',
+    redirectTo: 'login',
+    pathMatch: 'full'
   },
-  {path:'todo',
-  component:TodoComponent
-},
+  {
+    path: 'login',
+    loadChildren: './login/login.module#LoginModule'
+  },
+  {
+    path: 'todo',
+    component: TodoComponent
+  },
 ];
 @NgModule({
   declarations: [],
   imports: [
     RouterModule.forRoot(routes)
   ],
-exports:[RouterModule]
+  exports: [RouterModule]
 })
 export class AppRoutingModule { }
