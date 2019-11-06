@@ -1,90 +1,98 @@
 <div class="body">
-<div fxLayout="column" fxLayoutAlign="start center">
-    <div fxLayout="row" fxLayoutAlign="start center">
-        <div fxLayout="column" fxLayoutAlign="start none" class="container" >
-            <div fxLayout="row" fxLayoutAlign="start center" class="todo-header">
-                <h1>每日待办事件管理器</h1>
-            </div>
+    <div fxLayout="column" fxLayoutAlign="start center">
+        <div fxLayout="row" fxLayoutAlign="start center">
+            <div fxLayout="column" fxLayoutAlign="start none" class="container">
+                <div fxLayout="row" fxLayoutAlign="start center" class="todo-header">
+                    <h1>每日待办事件管理器</h1>
+                </div>
                 <div fxLayout="row" fxLayoutAlign="start none">
-                <mat-card class="example-card">
-                <mat-card-header>
-                    <mat-card-title>{{weekToday}}</mat-card-title>
-                    <mat-card-subtitle>{{today}}</mat-card-subtitle>
-                </mat-card-header>
+                    <mat-card class="example-card">
+                        <mat-card-header>
+                            <mat-card-title>{{weekToday}}</mat-card-title>
+                            <mat-card-subtitle>{{today}}</mat-card-subtitle>
+                        </mat-card-header>
 
-                <mat-card-content>
-                <div fxLayout="column" fxLayoutAlign="start none">
-                <div fxLayout="row" fxLayoutAlign="space-between center">
-                    <div class="input">
-                    
-                    <form [formGroup]="todoForm"  #formDir="ngForm" (ngSubmit)="onSubmit()">
-                    
-                        <mat-form-field appearance="outline" >
-                            <input matInput formControlName="item" placeholder="添加待办事项" >
-                        </mat-form-field>
+                        <mat-card-content>
+                            <div fxLayout="column" fxLayoutAlign="start none">
+                                <div fxLayout="row" fxLayoutAlign="space-between center">
+                                    <div class="input">
 
-                    </form>
-                    </div>
-                    <div class="button">
-                    <button mat-raised-button (click)="addItem()" color="primary">+
-                    </button>
-                    </div>
-                </div>
-                
-                <div fxLayout="row" fxLayoutAlign="start center">
-                <mat-list>
-                <div *ngIf="items.length>0" class="free">
+                                        <form [formGroup]="todoForm" #formDir="ngForm" (ngSubmit)="onSubmit()">
 
-                <div fxLayout="row" fxLayoutAlign="start center" >
-                你有{{ todoItems }}件待完成事件
+                                            <mat-form-field appearance="outline">
+                                                <input matInput formControlName="item" placeholder="添加待办事项">
+                                            </mat-form-field>
+
+                                        </form>
+                                    </div>
+                                    <div class="button">
+                                        <button mat-raised-button (click)="addItem()" color="primary">+
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <div fxLayout="row" fxLayoutAlign="start center">
+                                    <mat-list>
+                                        <div *ngIf="items.length>0" class="free">
+
+                                            <div fxLayout="row" fxLayoutAlign="start center">
+                                                你有{{ todoItems }}件待完成事件
+                                            </div>
+                                            <mat-list-item *ngFor="let item of items">
+                                                <div fxLayout="row" fxLayoutAlign="space-betweeen center"
+                                                    class="mat-list-box">
+                                                    <mat-checkbox (change)="completeItem(item)">{{item}}</mat-checkbox>
+
+                                                    <button mat-raised-button (click)="delItem(item)"
+                                                        class="deleteButton" color="warn">X
+                                                    </button>
+                                                </div>
+                                            </mat-list-item>
+                                        </div>
+                                        <div *ngIf="!items.length>0" fxLayout="row" class="free"
+                                            fxLayoutAlign="center center">
+                                            空闲时间!你没有待办事项。
+                                        </div>
+                                    </mat-list>
+                                </div>
+                                <div *ngIf="showComplete">
+
+                                    <div fxLayout="row" fxLayoutAlign="start center" *ngIf="completeditems.length>0">
+                                        已完成的事件:{{ completed }}%
+                                    </div>
+                                    <div fxLayout="row" fxLayoutAlign="start center">
+
+                                        <mat-list>
+                                            <mat-list-item *ngFor="let completeditem of completeditems"
+                                                class="completedItem">
+                                                <div fxLayout="row" fxLayoutAlign="space-betweeen center"
+                                                    class="mat-list-box">
+                                                    <mat-checkbox [checked]="true" (change)="toItem(completeditem)">
+                                                        {{completeditem}}</mat-checkbox>
+
+                                                    <button mat-raised-button (click)="delCompletedItem(completeditem)"
+                                                        class="deleteButton" color="warn">X
+                                                    </button>
+                                                </div>
+                                            </mat-list-item>
+                                        </mat-list>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </mat-card-content>
+                        <mat-card-actions fxLayoutAlign="center center">
+                            <button *ngIf="completeditems.length >0" mat-raised-button color="primary"
+                                (click)="showComplete=!showComplete">{{showComplete ? '隐藏已完成任务' : '显示已完成任务'}}</button>
+                            <button *ngIf="items.length >0 || completeditems.length >0" mat-raised-button color="warn"
+                                (click)="clear()">Clear All</button>
+                        </mat-card-actions>
+                    </mat-card>
                 </div>
-                    <mat-list-item *ngFor="let item of items" >
-                    <div fxLayout="row" fxLayoutAlign="space-betweeen center" class="mat-list-box" >
-                    <mat-checkbox (change)="completeItem(item)">{{item}}</mat-checkbox>
-                    
-                    <button mat-raised-button (click)="delItem(item)" class="deleteButton" color="warn">X
-                    </button>
-                    </div>
-                    </mat-list-item>
-                    </div>
-                    <div *ngIf="!items.length>0" fxLayout="row" class="free" fxLayoutAlign="center center">
-                    空闲时间!你没有待办事项。
-                    </div>
-                    </mat-list>
-                </div>
-                <div *ngIf="showComplete">
-                
-                <div fxLayout="row" fxLayoutAlign="start center" *ngIf="completeditems.length>0">
-                已完成的事件:{{ completed }}%
-                </div>
-                <div fxLayout="row" fxLayoutAlign="start center">
-                
-                <mat-list>
-                    <mat-list-item *ngFor="let completeditem of completeditems" class="completedItem">
-                    <div fxLayout="row" fxLayoutAlign="space-betweeen center" class="mat-list-box" >
-                    <mat-checkbox [checked]="true" (change)="toItem(completeditem)" >{{completeditem}}</mat-checkbox>
-                    
-                    <button mat-raised-button (click)="delCompletedItem(completeditem)" class="deleteButton" color="warn">X
-                    </button>
-                    </div>
-                    </mat-list-item>
-                    </mat-list>
-                </div>
-                
-                </div>
-                 </div>
-                </mat-card-content>
-                <mat-card-actions fxLayoutAlign="center center">
-                    <button *ngIf="completeditems.length >0" mat-raised-button color="primary" (click)="showComplete=!showComplete">{{showComplete ? '隐藏已完成任务' : '显示已完成任务'}}</button>
-                    <button *ngIf="items.length >0 || completeditems.length >0" mat-raised-button color="warn" (click)="clear()">Clear All</button>
-                </mat-card-actions>
-                </mat-card>
-                </div>
+            </div>
+
         </div>
-        
-</div>
 
-<div fxLayout="column" fxLayoutAlign="end center" class="footer">
-<app-footer></app-footer>
-</div>
-</div>
+        <div fxLayout="column" fxLayoutAlign="end center" class="footer">
+            <app-footer></app-footer>
+        </div>
