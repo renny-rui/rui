@@ -24,6 +24,9 @@ export class TodoComponent implements OnInit {
 
   constructor(
   ) {
+    this.todoForm = new FormGroup({
+      item: new FormControl(''),
+    });
     switch (this.weeekday) {
 
       case 1:
@@ -74,9 +77,6 @@ export class TodoComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.todoForm = new FormGroup({
-      item: new FormControl('', []),
-    });
   }
   addItem(): void {
     if (this.todoForm.get('item').value) {

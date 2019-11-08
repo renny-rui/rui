@@ -1,3 +1,8 @@
-<div fxLayout="row" fxLayoutAlign="start start" class="container">
-<input type="text" id="timeInput"  style="width:50px;height:28px;" />
+<div fxLayout="row" fxLayoutAlign="space-between end" class="container">
+<div fxFlex="70">
+<img [src]="imgPath" class="img" />
+</div>
+<div class="btn1" >
+ <button mat-raised-button  (click)="changeItem()" color="accent">click</button>
+ </div>
 </div>
