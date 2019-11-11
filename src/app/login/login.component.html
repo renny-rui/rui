@@ -1,36 +1,34 @@
 <div fxLayout="column" fxLayoutAlign="center none" class="body">
-    <div fxLayout="row" fxLayoutAlign="center center" class="container">
-        <mat-card class="container-body">
-            <mat-card-title fxLayoutAlign="start center">请登录</mat-card-title>
-            <mat-card-content>
-                <form [formGroup]="form" (ngSubmit)="submit()">
-                    <div class="input-box">
-                        <mat-form-field appearance="outline">
-                            <input class="input" matInput placeholder="Username" formControlName="username">
-                        </mat-form-field>
-                    </div>
+  <div fxLayout="row" fxLayoutAlign="center center" class="container">
+    <mat-card fxLayout="column" fxLayoutAlign="start none" class="container-body">
+      <mat-card-header fxLayout="row" fxLayoutAlign="start center">
 
-                    <div class="input-box">
-                        <mat-form-field appearance="outline">
-                            <input type="password" class="input" matInput placeholder="Password"
-                                formControlName="password">
-                        </mat-form-field>
-                    </div>
-
-                    <div *ngIf="error" class="error">
-                        {{ error }}
-                    </div>
-
-                    <div class="checkbox">
-                        <mat-checkbox color="primary" formControlName="remember" [(ngModel)]="remember"
-                            [checked]="remember">记住密码?</mat-checkbox>
-                    </div>
-                    <div class="button">
-                        <button mat-raised-button type="submit" [disabled]="form.invalid" color="primary">登录</button>
-                    </div>
-
-                </form>
-            </mat-card-content>
-        </mat-card>
-    </div>
-</div>
+        <mat-card-title fxLayout="row" fxLayoutAlign="start center">请登录</mat-card-title>
+      </mat-card-header>
+        <mat-card-content fxLayout="row" fxLayoutAlign="start center">
+          <form [formGroup]="form" (ngSubmit)="sumbit()">
+            <div class="input-box">
+            <mat-form-field>
+              <input matInput placeholder="Username">
+            </mat-form-field>
+              </div>
+            <div class="input-box">
+              <mat-form-field>
+                <input  matInput placeholder="password">
+              </mat-form-field>
+            </div>
+            <div *ngIf="error" class="error">
+              {{error}}
+            </div>
+            <div class="checkbox">
+              <mat-checkbox color="primary" [(ngModel)]="remember" [checked]="remember">记住密码？</mat-checkbox>
+            </div>
+            <div class="button">
+              <button mat-raised-button type="submit" [disabled]="form.invalid" color="primary">登录</button>
+            </div>
+          </form>
+        </mat-card-content>
+      
+  </mat-card>
+ </div>
+ </div>
